@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><bpws:process xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns="http://HelloWorld/bpc/samples/HelloWorldProcessArtifacts" xmlns:ns0="http://HelloWorld/bpc/samples/HelloWorldProcessInterface" xmlns:wpc="http://www.ibm.com/xmlns/prod/websphere/business-process/6.0.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.ibm.com/xmlns/prod/websphere/business-process/expression-lang/java/6.0.0/" name="HelloWorldProcess" suppressJoinFailure="yes" targetNamespace="http://HelloWorld/bpc/samples" wpc:continueOnError="no" wpc:displayName="HelloWorldProcess" wpc:executionMode="microflow" wpc:id="5" wpc:validFrom="2008-12-01T14:36:12">
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="HelloWorldProcess.wsdl" namespace="http://HelloWorld/bpc/samples/HelloWorldProcessInterface"/>
+  <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="HelloWorldProcessArtifacts.wsdl" namespace="http://HelloWorld/bpc/samples/HelloWorldProcessArtifacts"/>
+  <bpws:partnerLinks>
+    <bpws:partnerLink myRole="Interface" name="HelloWorldProcess" partnerLinkType="ns:HelloWorldProcessPLT"/>
+  </bpws:partnerLinks>
+  <bpws:variables>
+    <bpws:variable name="input1" type="xsd:string" wpc:id="4"/>
+  </bpws:variables>
+  <bpws:sequence name="HiddenSequence" wpc:id="1073741825">
+    <bpws:receive createInstance="yes" name="Receive" operation="operation1" partnerLink="HelloWorldProcess" portType="ns0:HelloWorldProcess" wpc:displayName="Receive" wpc:id="2" wpc:transactionalBehavior="commitAfter">
+      <wpc:output>
+        <wpc:parameter name="input1" variable="input1"/>
+      </wpc:output>
+    </bpws:receive>
+    <bpws:invoke name="Snippet" operation="null" partnerLink="null" portType="wpc:null" wpc:continueOnError="inherit" wpc:displayName="Snippet" wpc:id="6">
+      <wpc:script>
+        <wpc:javaCode><![CDATA[//print the greeting:
+System.out.println("Hello, " + input1);
+//assign a value to the Output variable:
+input1 = "Hello World!"; ]]></wpc:javaCode>
+      </wpc:script>
+    </bpws:invoke>
+    <bpws:reply name="Reply" operation="operation1" partnerLink="HelloWorldProcess" portType="ns0:HelloWorldProcess" wpc:displayName="Reply" wpc:id="3">
+      <wpc:input>
+        <wpc:parameter name="output1" variable="input1"/>
+      </wpc:input>
+    </bpws:reply>
+  </bpws:sequence>
+</bpws:process>
